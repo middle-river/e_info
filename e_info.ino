@@ -9,7 +9,7 @@
 
 extern "C" int rom_phy_get_vdd33();
 
-constexpr int SHUTDOWN_VOLTAGE = 2.7;
+constexpr float SHUTDOWN_VOLTAGE = 2.7f;
 constexpr int BUSY_PIN = 16;
 constexpr int RST_PIN = 17;
 constexpr int DC_PIN = 22;
@@ -132,15 +132,9 @@ void suspend() {
 
 float getVoltage() {
   btStart();
-  delay(1000);
-  float vdd = 0.0;
-  for (int i = 0; i < 100; i++) {
-    delay(10);
-    vdd += rom_phy_get_vdd33();
-  }
+  const int v = rom_phy_get_vdd33();
   btStop();
-  vdd /= 100.0;
-  vdd = -0.0000135277 * vdd * vdd + 0.0128399 * vdd + 0.474502;
+  const float vdd =  0.0005045f * v + 0.3368f;
   return vdd;
 }
 
