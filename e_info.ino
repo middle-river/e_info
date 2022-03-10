@@ -132,7 +132,9 @@ void suspend() {
 
 float getVoltage() {
   btStart();
-  const int v = rom_phy_get_vdd33();
+  int v = 0;
+  for (int i = 0; i < 20; i++) v += rom_phy_get_vdd33();
+  v /= 20;
   btStop();
   const float vdd =  0.0005045f * v + 0.3368f;
   return vdd;
