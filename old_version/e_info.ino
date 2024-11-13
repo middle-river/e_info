@@ -239,19 +239,11 @@ void run() {
   getLocalTime(&time);
   Serial.println("Time: " + String(time.tm_hour) + ":" + String(time.tm_min));
 
-{
-script.run("\"https://www.bloomberg.com/quote/JPY:CUR\"\twget");
-script.run("\"https://www.rakuten-sec.co.jp/web/market/search/us_search/quote.html?ric=GOOG.O&c=us&p=quote\"\twget");
-https://money.cnn.com/quote/chart/chart.html?symb=GOOGL
-
-while (true) ;
-}
   // Run the script.
   Serial.println("Running the code: " + String(preferences.getBytesLength("CODE") - 1));
   script.initialize(time, voltage);
   preferences.getBytes("CODE", buffer, BUFFER_SIZE);
   script.run((char *)buffer);
-while (true) ;
 
   // Disable WiFi.
   WiFi.disconnect(true);
